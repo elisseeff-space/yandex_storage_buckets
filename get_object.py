@@ -1,4 +1,4 @@
-import boto3, io, PIL
+import boto3, io
 from PIL import Image
 from io import BytesIO
 
@@ -12,8 +12,11 @@ s3 = session.client(
 # Получить объект
 get_object_response = s3.get_object(Bucket='elisseeffdata',Key='test_catalog/loewe_1.jpg')
 #print(get_object_response['Body'].read())
-#print(get_object_response)
+for _ in get_object_response.keys() :
+    if _ == 'Body':
+        print(_)
+    else :
+        print(f"key = {_}\n {get_object_response[_]}")
 
-image = Image.open(io.BytesIO(get_object_response['Body'].read()))
+#image = Image.open(io.BytesIO(get_object_response['Body'].read()))
 #image.show()
-PIL.ImageShow.show(image)
